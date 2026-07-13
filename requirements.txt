@@ -1,0 +1,18 @@
+# Core pipeline
+pandas>=2.0
+numpy>=1.24
+pyyaml>=6.0
+pyarrow>=14.0          # parquet I/O between pipeline stages
+
+# Front-end
+streamlit>=1.30
+
+# Testing
+pytest>=8.0
+
+# --- Add on event day depending on the real data format ---
+# xarray>=2024.0       # netCDF / HDF granules (common for NASA gridded data)
+# netcdf4>=1.6         # backend for xarray netCDF
+# h5py>=3.10           # HDF5 backend
+# rioxarray>=0.15      # GeoTIFF / raster satellite imagery
+# requests>=2.31       # pulling data from an API (e.g. NASA Earthdata)
