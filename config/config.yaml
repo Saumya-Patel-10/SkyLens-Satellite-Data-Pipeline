@@ -1,0 +1,47 @@
+# ---------------------------------------------------------------------------
+# Project configuration
+#
+# Everything the pipeline needs lives here so the code stays generic and you
+# only edit ONE file when the 2026 challenge tells you the real dataset/region.
+# ---------------------------------------------------------------------------
+
+project:
+  name: "SkyLens"                 # rename to your team/project name
+  challenge: "Air quality exploration (placeholder)"  # replace on event day
+  one_question: >
+    How has surface-level air quality changed over time across our study
+    region, and where are the worst-affected areas?
+
+# The single, narrow question above is your MVP anchor. If a feature doesn't
+# help answer it, cut the feature (see docs/STORY.md).
+
+data:
+  # Structure of the value we care about. Swap these to match the real dataset.
+  variable: "no2"               # e.g. no2, aod, pm25, chlorophyll, temp_anomaly
+  units: "10^15 molec/cm^2"
+  source: "synthetic"           # "synthetic" (offline demo) | "csv" | "netcdf"
+  raw_path: "data/raw/"
+  interim_path: "data/interim/"
+  processed_path: "data/processed/"
+
+region:
+  name: "Study Region"
+  # Bounding box in degrees. Default is a mid-latitude land box.
+  lat_min: 32.0
+  lat_max: 34.0
+  lon_min: -98.0
+  lon_max: -96.0
+  grid_resolution: 0.1          # degrees per cell
+
+time:
+  start: "2020-01-01"
+  end: "2024-12-31"
+  freq: "MS"                    # pandas offset: MS = month start
+
+quality_control:
+  # Cleaning thresholds. Real satellite products ship with QC flags/cloud
+  # fractions; these stand in for that logic until you wire the real ones.
+  min_valid: 0.0                # physically-impossible-below floor
+  max_valid: 50.0              # implausible-high ceiling -> treated as bad
+  max_cloud_fraction: 0.4       # drop obs with more cloud cover than this
+  outlier_z: 4.0                # z-score above which a value is flagged
